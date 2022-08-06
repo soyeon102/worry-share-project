@@ -1,7 +1,5 @@
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import Grid from "@mui/material/Grid";
-import Layout from "./layout/Layout";
 
 const WorryDetail = () => {
   let { id } = useParams();
@@ -30,7 +28,8 @@ const StId = styled.div`
 `;
 
 const StTitle = styled.div`
-  border: 2px solid black;
+  box-shadow: 0px 0px 3px 1px lightcoral;
+  border: none;
   width: 80%;
   height: 50px;
   margin: 20px auto;
@@ -38,7 +37,8 @@ const StTitle = styled.div`
 `;
 
 const StContent = styled.div`
-  border: 2px solid black;
+  box-shadow: 0px 0px 3px 1px lightcoral;
+  border: none;
   width: 80%;
   height: 250px;
   margin: 20px auto;
