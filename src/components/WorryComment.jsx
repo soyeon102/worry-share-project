@@ -18,18 +18,18 @@ export default function BasicStack() {
     <>
       <Box sx={{ width: "100%" }}>
         <Stack spacing={3}>
+          <StCommentAdd>
+            <StUserName>작성자</StUserName>
+
+            <StCommentInput
+              type="text"
+              id="comment"
+              placeholder="여기에 입력해주세요"
+            />
+
+            <StAddButton>+</StAddButton>
+          </StCommentAdd>
           <div>
-            <StCommentAdd>
-              <StUserName>작성자</StUserName>
-
-              <StCommentInput
-                type="text"
-                id="comment"
-                placeholder="여기에 입력해주세요"
-              />
-
-              <StAddButton>+</StAddButton>
-            </StCommentAdd>
             <StCommentList>
               <StComment>댓글</StComment>
               <StComment>댓글</StComment>
@@ -79,8 +79,7 @@ width: 80%;
 margin: 0px auto;
 `;
 
-const StComment = AnotherStyled(Item)`
-border: 2px solid lightblue;
-  height: 40px;
-  text-align: center;
-`;
+const StComment = styled(Item)({
+  border: "2px solid lightblue",
+  height: "40px",
+});
