@@ -1,6 +1,6 @@
-import Layout from '../layout/Layout';
-import WorryDetail from '../WorryDetail';
-import WorryComment from '../WorryComment';
+import Layout from "../layout/Layout";
+import WorryDetail from "../WorryDetail";
+import WorryComment from "../WorryComment";
 
 const DetailPage = () => {
   return (
@@ -8,6 +8,7 @@ const DetailPage = () => {
       <WorryDetail />
       <WorryComment />
       <div>상세페이지 (삭제예정)</div>
+      <div> TEST, TEST추가</div>
       <div>test!!!</div>
     </Layout>
   );
