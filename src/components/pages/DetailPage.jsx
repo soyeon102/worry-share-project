@@ -7,9 +7,6 @@ const DetailPage = () => {
     <Layout>
       <WorryDetail />
       <WorryComment />
-      <div>상세페이지 (삭제예정)</div>
-      <div> TEST, TEST추가</div>
-      <div>test!!!</div>
     </Layout>
   );
 };
