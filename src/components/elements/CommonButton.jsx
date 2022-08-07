@@ -1,14 +1,19 @@
-import { StyledEngineProvider } from '@mui/styled-engine';
-import styled from 'styled-components';
-import Button from '@mui/material/Button';
-import IconButton from '@mui/material/IconButton';
-import DeleteIcon from '@mui/icons-material/Delete';
+import { StyledEngineProvider } from "@mui/styled-engine";
+import styled from "styled-components";
+import Button from "@mui/material/Button";
+import IconButton from "@mui/material/IconButton";
+import DeleteIcon from "@mui/icons-material/Delete";
 
-const CommonButton = ({ text, onClick, size, variant, iconColor }) => {
+const CommonButton = ({ text, onClick, size, variant, iconColor, margin }) => {
   return (
     <StyledEngineProvider injectFirst>
       {text ? (
-        <MyButton variant={variant} onClick={onClick} size={size}>
+        <MyButton
+          variant={variant}
+          onClick={onClick}
+          size={size}
+          margin={margin}
+        >
           {text}
         </MyButton>
       ) : (
@@ -22,7 +27,8 @@ const CommonButton = ({ text, onClick, size, variant, iconColor }) => {
 
 export default CommonButton;
 
-const MyButton = styled(Button)(({ size }) => ({
-  width: size || 'auto',
-  color: 'black',
+const MyButton = styled(Button)(({ size, margin }) => ({
+  width: size || "auto",
+  color: "black",
+  margin: margin || "auto",
 }));

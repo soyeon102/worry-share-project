@@ -1,11 +1,10 @@
-import Layout from '../layout/Layout';
-import MainButton from '../MainButton';
-import CommonButton from '../elements/CommonButton';
-import styled from 'styled-components';
+import Layout from "../layout/Layout";
+import MainButton from "../MainButton";
+import CommonButton from "../elements/CommonButton";
 
 const Home = () => {
   const handleClick = () => {
-    console.log('Click!');
+    console.log("Click!");
   };
 
   return (
