@@ -1,9 +1,10 @@
 import styled from "styled-components";
+import { Link } from 'react-router-dom';
 
 const Header = () => {
   return (
     <StContainer>
-      <StHeaderTitle>고민상담소 🤔</StHeaderTitle>
+      <StHeaderTitle to="/">고민상담소 🤔</StHeaderTitle>
     </StContainer>
   );
 };
@@ -16,7 +17,10 @@ const StContainer = styled.div`
   background-color: #efefef;
 `;
 
-const StHeaderTitle = styled.h1`
+const StHeaderTitle = styled(Link)`
+  font-size: 30px;  
+  font-weight: bold;
+  margin: 16px 0;
   display: inline-block;
   cursor: pointer;
 `;
