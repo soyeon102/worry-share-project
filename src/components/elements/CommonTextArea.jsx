@@ -1,8 +1,13 @@
 import styled from "styled-components";
 import "@fontsource/roboto/300.css";
 
-const CommonTextArea = ({ text, id }) => {
-  return <StTextArea placeholder={text} id={id} />;
+const CommonTextArea = ({ labeltext, text, id }) => {
+  return (
+    <StBox>
+      <Stlabel for={id}>{labeltext}</Stlabel>
+      <StTextArea placeholder={text} id={id} />
+    </StBox>
+  );
 };
 
 export default CommonTextArea;
@@ -27,4 +32,13 @@ const StTextArea = styled.textarea`
   ::placeholder {
     color: #b3acac;
   }
+`;
+const StBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-top: 1%;
+`;
+const Stlabel = styled.label`
+  font-size: 20px;
+  font-weight: bold;
 `;
