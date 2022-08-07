@@ -1,5 +1,4 @@
 import Container from "@mui/material/Container";
-import styled from "styled-components";
 import Header from "./Header";
 
 const Layout = ({ children }) => {

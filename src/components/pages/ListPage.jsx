@@ -8,6 +8,7 @@ const ListPage = () => {
       <StListtitle>
       고민 리스트  
       </StListtitle>
+      <WorryList/>
     </Layout>
   );
 };
