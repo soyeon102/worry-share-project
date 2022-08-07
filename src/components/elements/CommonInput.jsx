@@ -6,7 +6,7 @@ const ariaLabel = { "aria-label": "description" };
 const CommonInput = ({ labeltext, text, id }) => {
   return (
     <StBox>
-      <Stlabel for={id}>{labeltext}</Stlabel>
+      <Stlabel htmlfor={id}>{labeltext}</Stlabel>
       <Input
         placeholder={text}
         inputProps={ariaLabel}
