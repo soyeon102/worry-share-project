@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import IconButton from "@mui/material/IconButton";
+import DeleteIcon from "@mui/icons-material/Delete";
 import { useNavigate } from "react-router-dom";
 
 const WorryList = () => {
@@ -13,7 +15,14 @@ const WorryList = () => {
       <StWorryList>
         <StListtitle>
           Title
-          <StListBtn>삭제</StListBtn>
+          <IconButton
+            color='primary'
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
+          >
+            <DeleteIcon />
+          </IconButton>
         </StListtitle>
 
         <StListWriter>작성자:나</StListWriter>
@@ -49,11 +58,4 @@ const StListtitle = styled.div`
 const StListWriter = styled.div`
   font-size: 10px;
   margin-top: 10px;
-`;
-
-const StListBtn = styled.button`
-  width: 50px;
-  height: 3vh;
-  text-align: center;
-  line-height: 25px;
 `;
