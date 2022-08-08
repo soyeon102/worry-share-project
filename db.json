@@ -1,16 +1,3 @@
 {
-  "worries": [
-    {
-      "id": "1",
-      "user": "",
-      "title": "",
-      "content": ""
-    },
-    {
-      "user": "정성일",
-      "title": "dkssud",
-      "content": "안녕",
-      "id": "Jo85O2W"
-    }
-  ]
+  "worries": []
 }

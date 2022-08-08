@@ -32,15 +32,16 @@ const WorryList = () => {
           {worries?.map((worry) => (
             <span key={worry.id}>{worry.title}</span>
           ))}
-          <IconButton
-            color='primary'
-            onClick={(e) => {
-              e.stopPropagation();
-            }}
-          >
-            <DeleteIcon />
-          </IconButton>
         </StListtitle>
+
+        <IconButton
+          color='primary'
+          onClick={(e) => {
+            e.stopPropagation();
+          }}
+        >
+          <DeleteIcon />
+        </IconButton>
 
         <StListWriter>
           작성자:{" "}
