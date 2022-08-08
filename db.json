@@ -1,20 +1,40 @@
 {
-  "posts": [
+  "worries": [
     {
-      "id": 1,
-      "title": "json-server",
-      "author": "typicode"
-    }
-  ],
-  "comments": [
+      "id": "1",
+      "user": "",
+      "title": "",
+      "content": ""
+    },
     {
-      "id": 1,
-      "body": "some comment",
-      "postId": 1
+      "user": "asd",
+      "title": "asd",
+      "content": "asd",
+      "id": "xUIdW-T"
+    },
+    {
+      "user": "asd1",
+      "title": "asd2",
+      "content": "asd3",
+      "id": "zyW4L2j"
+    },
+    {
+      "user": "asd1",
+      "title": "asd2",
+      "content": "asd3",
+      "id": "OFMFfgw"
+    },
+    {
+      "user": "asd1",
+      "title": "asd2",
+      "content": "asd3",
+      "id": "5Lv5zwJ"
+    },
+    {
+      "user": "asd1",
+      "title": "asd2",
+      "content": "asd3",
+      "id": "D3M9LTc"
     }
-  ],
-  "profile": {
-    "name": "typicode"
-  }
+  ]
 }
-
