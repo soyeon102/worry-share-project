@@ -3,7 +3,7 @@ import Input from "@mui/material/Input";
 
 const ariaLabel = { "aria-label": "description" };
 
-const CommonInput = ({ labeltext, text, id }) => {
+const CommonInput = ({ labeltext, text, id, onChange }) => {
   return (
     <StBox>
       <Stlabel htmlfor={id}>{labeltext}</Stlabel>
@@ -12,6 +12,7 @@ const CommonInput = ({ labeltext, text, id }) => {
         inputProps={ariaLabel}
         sx={{ margin: "20px 0", width: "100%" }}
         id={id}
+        onChange={onChange}
       />
     </StBox>
   );
