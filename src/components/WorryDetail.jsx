@@ -1,14 +1,15 @@
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const WorryDetail = () => {
   let { id } = useParams();
+  const navigate = useNavigate();
 
   return (
     <>
       <StId>
         <span> id : {id} </span>
-        <button>이전으로</button>
+        <button onClick={() => navigate("/list")}>이전으로</button>
       </StId>
       <StTitle>제목</StTitle>
       <StContent>내용</StContent>
