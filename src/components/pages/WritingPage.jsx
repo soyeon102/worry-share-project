@@ -4,6 +4,9 @@ import CommonButton from "../elements/CommonButton";
 import CommonTextArea from "../elements/CommonTextArea";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+//import { addWorry } from "../../redux/modules/worrySlice";
+import { useDispatch } from "react-redux";
 
 const WritingPage = () => {
   const [worry, setWorry] = useState({
@@ -11,6 +14,9 @@ const WritingPage = () => {
     title: "",
     content: "",
   });
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [worries, setWorries] = useState(null);
 
@@ -21,6 +27,7 @@ const WritingPage = () => {
 
   const onSubmitHandler = (worry) => {
     axios.post("http://localhost:3001/worries", worry);
+    //dispatch(addWorry({}));
   };
 
   useEffect(() => {
@@ -81,11 +88,15 @@ const WritingPage = () => {
             onChange={handleinputContent}
           />
 
-          <button
+          <CommonButton
             text='추가하기'
             size='100%'
             variant='contained'
             margin='5% 0 0 0'
+            onClick={() => {
+              onSubmitHandler(worry);
+              navigate("/list");
+            }}
           />
         </form>
       </div>

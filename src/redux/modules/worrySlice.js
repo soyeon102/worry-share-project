@@ -1,11 +1,21 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-export const worrySlice = createSlice({
+const initialState = {
+  worrys: [],
+};
+
+const worrySlice = createSlice({
   name: "worry",
-  initialState: {
-    worrys: [],
+  initialState,
+  reducers: {
+    addWorry: (state, action) => {
+      return [...state, action.worry];
+    },
+    deleteWorry: (state, action) => {
+      state.worrys = state.filter((worry) => worry.id !== action.id);
+    },
   },
-  reducers: {},
 });
 
+export const { addWorry, deleteWorry } = worrySlice.actions;
 export default worrySlice.reducer;
