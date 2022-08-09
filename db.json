@@ -1,3 +1,20 @@
 {
-  "worries": []
+  "worries": [
+    {
+      "user": "작성자1",
+      "title": "제목1",
+      "content": "내용1",
+      "id": 1,
+      "isLoading": null,
+      "error": null
+    },
+    {
+      "user": "이름2",
+      "title": "제목2",
+      "content": "내용2",
+      "id": 2,
+      "isLoading": null,
+      "error": null
+    }
+  ]
 }

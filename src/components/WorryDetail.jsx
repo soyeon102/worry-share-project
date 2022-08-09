@@ -3,21 +3,27 @@ import { useParams, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
 import { __getWorries } from "../redux/modules/worrySlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { Satellite } from "@mui/icons-material";
 
 const WorryDetail = () => {
-  const [worries, setWorries] = useState(null);
-  const dispatch = useDispatch();
   let { id } = useParams();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  const fetchWorries = () => {
-    dispatch(__getWorries());
-  };
+  const { isLoading, error, worries } = useSelector((state) => state.worries);
 
   useEffect(() => {
-    fetchWorries();
-  }, []);
+    dispatch(__getWorries());
+  }, [dispatch]);
+
+  if (isLoading) {
+    return <div>로딩 중...</div>;
+  }
+
+  if (error) {
+    return <div>{error.message}</div>;
+  }
+
   return (
     <>
       <StId>
