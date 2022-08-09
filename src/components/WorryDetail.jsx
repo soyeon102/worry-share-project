@@ -35,6 +35,12 @@ const WorryDetail = () => {
               if (worry.id == id) return worry.user;
             })}
           </span>
+          <span>
+            작성시간 : {""}
+            {worries?.map((worry) => {
+              if (worry.id == id) return worry.date;
+            })}
+          </span>
         </StUser>
 
         <button onClick={() => navigate("/list")}>이전으로</button>

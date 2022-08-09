@@ -5,6 +5,7 @@ const initialState = {
   worries: [],
   isLoading: false,
   error: null,
+  comments: [],
 };
 
 export const __getWorries = createAsyncThunk(
@@ -37,6 +38,7 @@ export const worrySlice = createSlice({
     [__getWorries.fulfilled]: (state, action) => {
       state.isLoading = false;
       state.worries = action.payload;
+      state.comments = action.payload;
     },
     [__getWorries.rejected]: (state, action) => {
       state.isLoading = false;

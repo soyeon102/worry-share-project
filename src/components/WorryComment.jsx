@@ -5,8 +5,13 @@ import Paper from "@mui/material/Paper";
 import Stack from "@mui/material/Stack";
 import { styled } from "@mui/material/styles";
 import { useDispatch, useSelector } from "react-redux";
+import { useParams, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { __getComments } from "../redux/modules/commentsSlice";
+import { Rowing } from "@mui/icons-material";
 
 const Item = styled(Paper)(({ theme }) => ({
+  //Material UI  적용
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
   ...theme.typography.body2,
   padding: theme.spacing(1),
@@ -15,6 +20,16 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 export default function BasicStack() {
+  let { id } = useParams();
+  const { isLoading, error, worries, comments } = useSelector(
+    (state) => state.comments
+  );
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(__getComments());
+  }, [dispatch]);
+
   return (
     <>
       <Box sx={{ width: "100%" }}>
@@ -32,9 +47,14 @@ export default function BasicStack() {
           </StCommentAdd>
           <div>
             <StCommentList>
-              <StComment>댓글</StComment>
-              <StComment>댓글</StComment>
-              <StComment>댓글</StComment>
+              {comments?.map((comment) => {
+                return (
+                  <StComment key={comment.commentId}>
+                    <div>{comment.commentUser}</div>
+                    <div>{comment.comment}</div>
+                  </StComment>
+                );
+              })}
             </StCommentList>
           </div>
         </Stack>
@@ -83,4 +103,7 @@ margin: 0px auto;
 const StComment = styled(Item)({
   border: "2px solid lightblue",
   height: "40px",
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
 });
