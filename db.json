@@ -1,0 +1,38 @@
+{
+  "worries": [
+    {
+      "id": 1,
+      "title": "타이틀입니다.",
+      "content": "내용입니다.",
+      "user": "작성자",
+      "date": "2022-08-10T13:45:00.000Z",
+      "comments": [
+        {
+          "commentId": 1,
+          "commentUser": "유저이름",
+          "comment": "코멘트",
+          "commentDate": "2022-08-11T10:23:00.000Z",
+          "editCheck": false
+        },
+        {}
+      ]
+    },
+    {
+      "id": 2,
+      "title": "타이틀입니다.2",
+      "content": "내용입니다.2",
+      "user": "홍길동",
+      "date": "2022-08-10T13:45:00.000Z",
+      "comments": [
+        {
+          "commentId": 1,
+          "commentUser": "유저이름",
+          "comment": "코멘트",
+          "commentDate": "2022-08-11T10:23:00.000Z",
+          "editCheck": false
+        },
+        {}
+      ]
+    }
+  ]
+}

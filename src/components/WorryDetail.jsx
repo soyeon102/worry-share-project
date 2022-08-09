@@ -1,18 +1,52 @@
+import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import axios from "axios";
+import { __getWorries } from "../redux/modules/worrySlice";
+import { useDispatch } from "react-redux";
 
 const WorryDetail = () => {
+  const [worries, setWorries] = useState(null);
+  const dispatch = useDispatch();
   let { id } = useParams();
   const navigate = useNavigate();
 
+  const fetchWorries = () => {
+    dispatch(__getWorries());
+  };
+
+  useEffect(() => {
+    fetchWorries();
+  }, []);
   return (
     <>
       <StId>
-        <span> id : {id} </span>
+        <StUser>
+          <span> ID : {id} </span>
+          <span>
+            작성자 : {""}
+            {worries?.map((worry) => {
+              if (worry.id == id) return worry.user;
+            })}
+          </span>
+        </StUser>
+
         <button onClick={() => navigate("/list")}>이전으로</button>
       </StId>
-      <StTitle>제목</StTitle>
-      <StContent>내용</StContent>
+      <StTitle>
+        {worries?.map((worry) => {
+          if (worry.id == id) {
+            return worry.title;
+          }
+        })}
+      </StTitle>
+      <StContent>
+        {worries?.map((worry) => {
+          if (worry.id == id) {
+            return worry.content;
+          }
+        })}
+      </StContent>
     </>
   );
 };
@@ -26,6 +60,11 @@ const StId = styled.div`
   justify-content: space-between;
   width: 80%;
   margin: 20px auto;
+`;
+
+const StUser = styled.div`
+  display: flex;
+  flex-direction: column;
 `;
 
 const StTitle = styled.div`
