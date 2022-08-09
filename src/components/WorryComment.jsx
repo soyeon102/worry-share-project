@@ -6,12 +6,12 @@ import Stack from "@mui/material/Stack";
 import { styled } from "@mui/material/styles";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { __getComments } from "../redux/modules/commentsSlice";
-import { Rowing } from "@mui/icons-material";
+import { addComment } from "../redux/modules/commentsSlice";
+import axios from "axios";
 
 const Item = styled(Paper)(({ theme }) => ({
-  //Material UI  적용
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
   ...theme.typography.body2,
   padding: theme.spacing(1),
@@ -21,15 +21,30 @@ const Item = styled(Paper)(({ theme }) => ({
 
 export default function BasicStack() {
   let { id } = useParams();
-  const { isLoading, error, worries, comments } = useSelector(
-    (state) => state.comments
-  );
-  const dispatch = useDispatch();
+  const [comments, setComments] = useState();
+  const [comment, setComment] = useState({
+    id: 0,
+    commentUser: "",
+    comment: "",
+    commentDate: "",
+    editCheck: false,
+  }); // Material UI
 
   useEffect(() => {
-    dispatch(__getComments());
-  }, [dispatch]);
+    fetchtodos();
+  }, []);
 
+  const fetchtodos = async () => {
+    const { data } = await axios.get("http://localhost:3001/comments");
+    setComments(data);
+  };
+  // console.log("comments-->", comments);
+
+  const onClickAddComment = async (comment) => {
+    await axios.post("http://localhost:3001/comments", comment);
+    fetchtodos();
+  };
+  // console.log(comment);
   return (
     <>
       <Box sx={{ width: "100%" }}>
@@ -41,17 +56,26 @@ export default function BasicStack() {
               type="text"
               id="comment"
               placeholder="여기에 입력해주세요"
+              onChange={(e) => {
+                const { value } = e.target;
+                setComment({
+                  ...comment,
+                  comment: value,
+                });
+              }}
             />
 
-            <StAddButton>+</StAddButton>
+            <StAddButton onClick={() => onClickAddComment(comment)}>
+              +
+            </StAddButton>
           </StCommentAdd>
           <div>
             <StCommentList>
-              {comments?.map((comment) => {
+              {comments?.map((one) => {
                 return (
-                  <StComment key={comment.commentId}>
-                    <div>{comment.commentUser}</div>
-                    <div>{comment.comment}</div>
+                  <StComment key={one.id}>
+                    <div>{one.commentUser}</div>
+                    <div>{one.comment}</div>
                   </StComment>
                 );
               })}
@@ -62,8 +86,6 @@ export default function BasicStack() {
     </>
   );
 }
-
-// export default WorryComment;
 
 const StCommentAdd = AnotherStyled(Item)`
   display: flex;

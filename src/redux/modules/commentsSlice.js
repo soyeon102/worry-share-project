@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
 const initialState = {
-  comments: [],
+  comments: [1, 2],
   isLoading: false,
   error: null,
 };
@@ -38,5 +38,5 @@ export const commentsSlice = createSlice({
   },
 });
 
-export const { addWorry, deleteWorry } = commentsSlice.actions;
+export const { addComment } = commentsSlice.actions;
 export default commentsSlice.reducer;
