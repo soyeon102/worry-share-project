@@ -19,11 +19,22 @@ export const __getWorries = createAsyncThunk(
   }
 );
 
+export const __deleteWorries = createAsyncThunk(
+  "worries/deleteWorries",
+  async (payload, thunkAPI) => {
+    try {
+      await axios.delete(`http://localhost:3001/worries/${payload}`);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
 export const worrySlice = createSlice({
   name: "worry",
   initialState,
   reducers: {
-     addWorry: (state, action) => {
+    addWorry: (state, action) => {
       return [...state, action.worry];
     },
     deleteWorry: (state, action) => {
@@ -32,12 +43,10 @@ export const worrySlice = createSlice({
   },
   extraReducers: {
     [__getWorries.fulfilled]: (state, action) => {
-      console.log("fulfilled 상태", state, "action", action.payload)
-    }
-  }
-})
-
-
+      console.log("fulfilled 상태", state, "action", action.payload);
+    },
+  },
+});
 
 export const { addWorry, deleteWorry } = worrySlice.actions;
 export default worrySlice.reducer;

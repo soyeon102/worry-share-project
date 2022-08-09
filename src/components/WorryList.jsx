@@ -4,6 +4,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import axios from "axios"; // axios import 합니다.
+import WorryCard from "./WorryCard";
 
 const WorryList = () => {
   const navigate = useNavigate();
@@ -19,36 +20,12 @@ const WorryList = () => {
     fetchWorries();
   }, []);
 
-  console.log(worries);
-
   return (
-    <div
-      onClick={() => {
-        navigate("/detail/1");
-      }}
-    >
+    <div>
       <StWorryList>
-        <StListtitle>
-          {worries?.map((worry) => (
-            <span key={worry.id}>{worry.title}</span>
-          ))}
-        </StListtitle>
-
-        <IconButton
-          color='primary'
-          onClick={(e) => {
-            e.stopPropagation();
-          }}
-        >
-          <DeleteIcon />
-        </IconButton>
-
-        <StListWriter>
-          작성자:{" "}
-          {worries?.map((worry) => (
-            <span key={worry.id}>{worry.user}</span>
-          ))}
-        </StListWriter>
+        {worries?.map((worry) => (
+          <WorryCard key={worry.id} worry={worry} />
+        ))}
       </StWorryList>
     </div>
   );
@@ -57,13 +34,10 @@ const WorryList = () => {
 export default WorryList;
 
 const StWorryList = styled.div`
-  height: 80px;
   margin-top: 15px;
   display: flex;
   flex-direction: column;
-  border: solid 1px;
-  border-color: #eee;
-  border-radius: 10px;
+  border: 1px solid red;
   outline-color: #eee;
   padding: 0 10px;
   &:hover {
