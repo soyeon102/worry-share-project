@@ -3,21 +3,34 @@ import { useParams, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
 import { __getWorries } from "../redux/modules/worrySlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { Satellite } from "@mui/icons-material";
 
 const WorryDetail = () => {
-  const [worries, setWorries] = useState(null);
-  const dispatch = useDispatch();
   let { id } = useParams();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  const fetchWorries = () => {
-    dispatch(__getWorries());
-  };
+  const { isLoading, error, worries } = useSelector((state) => state.worries);
+  const [targetId, setTargetId] = useState(null);
+  const [editWorry, setEditWorry] = useState({
+    title: "",
+  });
 
   useEffect(() => {
-    fetchWorries();
-  }, []);
+    dispatch(__getWorries());
+  }, [dispatch]);
+
+  if (isLoading) {
+    return <div>로딩 중...</div>;
+  }
+
+  if (error) {
+    return <div>{error.message}</div>;
+  }
+
+  const onClickEditButtonHandler = (WorryId, edit) => {
+    axios.patch(`http://localhost:3000/detail/${WorryId}`, edit);
+  };
   return (
     <>
       <StId>
@@ -27,6 +40,12 @@ const WorryDetail = () => {
             작성자 : {""}
             {worries?.map((worry) => {
               if (worry.id == id) return worry.user;
+            })}
+          </span>
+          <span>
+            작성시간 : {""}
+            {worries?.map((worry) => {
+              if (worry.id == id) return worry.date;
             })}
           </span>
         </StUser>
@@ -47,6 +66,9 @@ const WorryDetail = () => {
           }
         })}
       </StContent>
+      <StButtonDiv>
+        <StButton>수정하기</StButton>
+      </StButtonDiv>
     </>
   );
 };
@@ -83,4 +105,18 @@ const StContent = styled.div`
   height: 250px;
   margin: 20px auto;
   text-align: center;
+`;
+
+const StButton = styled.button``;
+
+const StButtonDiv = styled.div`
+  display: flex;
+  justify-content: flex-end;
+
+  width: 90%;
+`;
+
+const StContainer = styled.div`
+  display: flex;
+  flex-direction: column;
 `;
