@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
 const initialState = {
-  todos: [],
+  worries: [],
   isLoading: false,
   error: null,
 };
@@ -22,13 +22,22 @@ export const __getWorries = createAsyncThunk(
 export const worrySlice = createSlice({
   name: "worry",
   initialState,
-  reducers: {},
-  extraReducers: {
-    [__getWorries.fulfilled]: (state, action) => {
-      console.log("fulfilled 상태", state, "action", action.payload);
+  reducers: {
+     addWorry: (state, action) => {
+      return [...state, action.worry];
+    },
+    deleteWorry: (state, action) => {
+      state.worrys = state.filter((worry) => worry.id !== action.id);
     },
   },
-});
+  extraReducers: {
+    [__getWorries.fulfilled]: (state, action) => {
+      console.log("fulfilled 상태", state, "action", action.payload)
+    }
+  }
+})
 
-export const {} = worrySlice.actions;
+
+
+export const { addWorry, deleteWorry } = worrySlice.actions;
 export default worrySlice.reducer;

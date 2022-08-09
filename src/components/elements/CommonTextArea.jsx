@@ -1,11 +1,11 @@
 import styled from "styled-components";
 import "@fontsource/roboto/300.css";
 
-const CommonTextArea = ({ labeltext, text, id }) => {
+const CommonTextArea = ({ labeltext, text, id, onChange }) => {
   return (
     <StBox>
-      <Stlabel for={id}>{labeltext}</Stlabel>
-      <StTextArea placeholder={text} id={id} />
+      <Stlabel htmlfor={id}>{labeltext}</Stlabel>
+      <StTextArea placeholder={text} id={id} onChange={onChange} />
     </StBox>
   );
 };
