@@ -11,6 +11,10 @@ const WorryDetail = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { isLoading, error, worries } = useSelector((state) => state.worries);
+  const [targetId, setTargetId] = useState(null);
+  const [editWorry, setEditWorry] = useState({
+    title: "",
+  });
 
   useEffect(() => {
     dispatch(__getWorries());
@@ -24,6 +28,9 @@ const WorryDetail = () => {
     return <div>{error.message}</div>;
   }
 
+  const onClickEditButtonHandler = (WorryId, edit) => {
+    axios.patch(`http://localhost:3000/detail/${WorryId}`, edit);
+  };
   return (
     <>
       <StId>
@@ -59,6 +66,9 @@ const WorryDetail = () => {
           }
         })}
       </StContent>
+      <StButtonDiv>
+        <StButton>수정하기</StButton>
+      </StButtonDiv>
     </>
   );
 };
@@ -95,4 +105,18 @@ const StContent = styled.div`
   height: 250px;
   margin: 20px auto;
   text-align: center;
+`;
+
+const StButton = styled.button``;
+
+const StButtonDiv = styled.div`
+  display: flex;
+  justify-content: flex-end;
+
+  width: 90%;
+`;
+
+const StContainer = styled.div`
+  display: flex;
+  flex-direction: column;
 `;
