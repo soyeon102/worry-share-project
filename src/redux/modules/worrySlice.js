@@ -23,37 +23,38 @@ export const __getWorries = createAsyncThunk(
 export const __deleteWorries = createAsyncThunk(
   "worries/deleteWorries",
   async (payload, thunkAPI) => {
-    try {
-      await axios.delete(`http://localhost:3001/worries/${payload}`);
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error);
-    }
+    await axios.delete(`http://localhost:3001/worries/${payload}`);
+
+    return payload;
   }
 );
 
 export const worrySlice = createSlice({
   name: "worry",
   initialState,
-  reducers: {
-    addWorry: (state, action) => {
-      return [...state, action.worry];
-    },
-    deleteWorry: (state, action) => {
-      state.worrys = state.filter((worry) => worry.id !== action.id);
-    },
-  },
+  reducers: {},
   extraReducers: {
     [__getWorries.pending]: (state) => {
       state.isLoading = true;
     },
     [__getWorries.fulfilled]: (state, action) => {
-      console.log("fulfilled 상태", state, "action", action.payload);
-
       state.isLoading = false;
       state.worries = action.payload;
       state.comments = action.payload;
     },
     [__getWorries.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    },
+    [__deleteWorries.pending]: (state, action) => {
+      state.isLoading = true;
+    },
+    [__deleteWorries.fulfilled]: (state, action) => {
+      state.worries = state.worries.filter(
+        (item) => item.id !== action.payload
+      );
+    },
+    [__deleteWorries.rejected]: (state, action) => {
       state.isLoading = false;
       state.error = action.payload;
     },
