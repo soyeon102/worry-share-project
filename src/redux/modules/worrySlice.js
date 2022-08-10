@@ -61,11 +61,8 @@ export const worrySlice = createSlice({
       state.isLoading = true;
     },
     [__getWorries.fulfilled]: (state, action) => {
-      console.log("fulfilled 상태", state, "action", action.payload);
-
       state.isLoading = false;
       state.worries = action.payload;
-      state.comments = action.payload;
     },
     [__getWorries.rejected]: (state, action) => {
       state.isLoading = false;
