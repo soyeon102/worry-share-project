@@ -4,6 +4,12 @@ import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Stack from "@mui/material/Stack";
 import { styled } from "@mui/material/styles";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { __getComments } from "../redux/modules/commentsSlice";
+import { addComment } from "../redux/modules/commentsSlice";
+import axios from "axios";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -14,6 +20,31 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 export default function BasicStack() {
+  let { id } = useParams();
+  const [comments, setComments] = useState();
+  const [comment, setComment] = useState({
+    id: 0,
+    commentUser: "",
+    comment: "",
+    commentDate: "",
+    editCheck: false,
+  }); // Material UI
+
+  useEffect(() => {
+    fetchtodos();
+  }, []);
+
+  const fetchtodos = async () => {
+    const { data } = await axios.get("http://localhost:3001/comments");
+    setComments(data);
+  };
+  // console.log("comments-->", comments);
+
+  const onClickAddComment = async (comment) => {
+    await axios.post("http://localhost:3001/comments", comment);
+    fetchtodos();
+  };
+  // console.log(comment);
   return (
     <>
       <Box sx={{ width: "100%" }}>
@@ -25,15 +56,29 @@ export default function BasicStack() {
               type="text"
               id="comment"
               placeholder="여기에 입력해주세요"
+              onChange={(e) => {
+                const { value } = e.target;
+                setComment({
+                  ...comment,
+                  comment: value,
+                });
+              }}
             />
 
-            <StAddButton>+</StAddButton>
+            <StAddButton onClick={() => onClickAddComment(comment)}>
+              +
+            </StAddButton>
           </StCommentAdd>
           <div>
             <StCommentList>
-              <StComment>댓글</StComment>
-              <StComment>댓글</StComment>
-              <StComment>댓글</StComment>
+              {comments?.map((one) => {
+                return (
+                  <StComment key={one.id}>
+                    <div>{one.commentUser}</div>
+                    <div>{one.comment}</div>
+                  </StComment>
+                );
+              })}
             </StCommentList>
           </div>
         </Stack>
@@ -41,8 +86,6 @@ export default function BasicStack() {
     </>
   );
 }
-
-// export default WorryComment;
 
 const StCommentAdd = AnotherStyled(Item)`
   display: flex;
@@ -82,4 +125,7 @@ margin: 0px auto;
 const StComment = styled(Item)({
   border: "2px solid lightblue",
   height: "40px",
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
 });
