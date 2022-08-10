@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+//import { __deleteComments } from "./worrySlice";
 
 const initialState = {
   comments: [1, 2],
@@ -35,6 +36,18 @@ export const commentsSlice = createSlice({
       state.isLoading = false;
       state.error = action.payload;
     },
+    /*[__deleteComments.pending]: (state, action) => {
+      state.isLoading = true;
+      state.error = action.payload;
+    },
+    [__deleteComments.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    },
+    [__deleteComments.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    },*/
   },
 });
 

@@ -12,20 +12,15 @@ const WorryCard = (props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const onClickDeleteButtonHandler = (e) => {
-    // e.preventDefault();
-    e.stopPropagation();
-    if (window.confirm("삭제하시겠습니까?"))
-      dispatch(__deleteWorries(props.worry.id));
-    window.location.reload();
-  };
-
   return (
     <StWorryList onClick={() => navigate(`/detail/${props.worry.id}`)}>
       <StListtitle>
         제목:{props.worry.title}{" "}
         <CommonButton
-          onClick={onClickDeleteButtonHandler}
+          onClick={(e) => {
+            e.stopPropagation();
+            dispatch(__deleteWorries(props.worry.id));
+          }}
           iconColor='primary'
         />
       </StListtitle>
