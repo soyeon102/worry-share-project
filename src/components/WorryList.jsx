@@ -21,42 +21,38 @@ const WorryList = () => {
   }, []);
 
   return (
-    <div
-      onClick={() => {
-        navigate("/detail/1");
-      }}
-    >
+    <div>
       <StWorryList>
-        <StListtitle>
-          {worries?.map((worry) => (
-            <span key={worry.id}>{worry.title}</span>
-          ))}
-        </StListtitle>
-
-        <IconButton
-          color="primary"
-          onClick={(e) => {
-            e.stopPropagation();
-          }}
-        >
-          <DeleteIcon />
-        </IconButton>
-
-        <StListWriter>
-          작성자:{" "}
-          {worries?.map((worry) => (
-            <span key={worry.id}>{worry.user}</span>
-          ))}
-        </StListWriter>
-      </StWorryList>
-
-      <div>
         {worries?.map((worry) => (
           <WorryCard key={worry.id} worry={worry} />
         ))}
-      </div>
+      </StWorryList>
     </div>
   );
 };
 
 export default WorryList;
+
+const StWorryList = styled.div`
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid red;
+  outline-color: #eee;
+  padding: 0 10px;
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
+const StListtitle = styled.div`
+  display: flex;
+  font-size: 20px;
+  margin-top: 10px;
+  justify-content: space-between;
+`;
+
+const StListWriter = styled.div`
+  font-size: 10px;
+  margin-top: 10px;
+`;
