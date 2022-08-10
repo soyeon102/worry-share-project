@@ -17,6 +17,7 @@ const WorryCard = (props) => {
     e.stopPropagation();
     if (window.confirm("삭제하시겠습니까?"))
       dispatch(__deleteWorries(props.worry.id));
+    window.location.reload();
   };
 
   return (
