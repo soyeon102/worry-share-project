@@ -1,0 +1,32 @@
+{
+  "worries": [
+    {
+      "user": "가나다라",
+      "title": "가나다라",
+      "content": "ㄱㅏ나다라",
+      "id": 1
+    },
+    {
+      "user": "아야어여오요오유우이",
+      "title": "아야어여오요오유우이",
+      "content": "아야어여오요오유우이",
+      "id": 2
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "commentUser": "",
+      "comment": "ㄴㅇㄹ",
+      "commentDate": "",
+      "editCheck": false
+    },
+    {
+      "id": 2,
+      "commentUser": "",
+      "comment": "ㄴㅇㄹ",
+      "commentDate": "",
+      "editCheck": false
+    }
+  ]
+}

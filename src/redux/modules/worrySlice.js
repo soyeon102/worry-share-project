@@ -1,13 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const initialState = {
-  worries: [],
-  isLoading: false,
-  error: null,
-  comments: [],
-};
-
 export const __getWorries = createAsyncThunk(
   "worries/getWorries",
   async (payload, thunkAPI) => {
@@ -29,10 +22,29 @@ export const __deleteWorries = createAsyncThunk(
   }
 );
 
+const initialState = {
+  worries: [{ id: 1 }],
+  isLoading: false,
+  error: null,
+  comments: [],
+};
+
 export const worrySlice = createSlice({
   name: "worry",
   initialState,
-  reducers: {},
+  reducers: {
+    addWorry: (state, action) => {
+      console.log("addWorries", state.worries);
+      return [...state, action.worry];
+    },
+    deleteWorry: (state, action) => {
+      console.log("deleteWorries", state.worries);
+      state.worrys = state.filter((worry) => worry.id !== action.id);
+    }, // ??
+    updateWorry: (state, action) => {
+      console.log("state", state.worries, "action", action);
+    },
+  },
   extraReducers: {
     [__getWorries.pending]: (state) => {
       state.isLoading = true;
@@ -40,7 +52,6 @@ export const worrySlice = createSlice({
     [__getWorries.fulfilled]: (state, action) => {
       state.isLoading = false;
       state.worries = action.payload;
-      state.comments = action.payload;
     },
     [__getWorries.rejected]: (state, action) => {
       state.isLoading = false;
@@ -61,5 +72,5 @@ export const worrySlice = createSlice({
   },
 });
 
-export const { addWorry, deleteWorry } = worrySlice.actions;
+export const { addWorry, deleteWorry, updateWorry } = worrySlice.actions;
 export default worrySlice.reducer;

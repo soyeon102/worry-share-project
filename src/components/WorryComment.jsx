@@ -28,6 +28,7 @@ export default function BasicStack() {
     comment: "",
     commentDate: "",
     editCheck: false,
+    postId: id,
   }); // Material UI
 
   useEffect(() => {
@@ -55,7 +56,7 @@ export default function BasicStack() {
             <StCommentInput
               type="text"
               id="comment"
-              placeholder="여기에 입력해주세요"
+              placeholder="댓글을 입력해주세요"
               onChange={(e) => {
                 const { value } = e.target;
                 setComment({
@@ -72,12 +73,16 @@ export default function BasicStack() {
           <div>
             <StCommentList>
               {comments?.map((one) => {
-                return (
-                  <StComment key={one.id}>
-                    <div>{one.commentUser}</div>
-                    <div>{one.comment}</div>
-                  </StComment>
-                );
+                if (one.postId == id) {
+                  return (
+                    <StComment key={one.id}>
+                      <div>{one.commentUser}</div>
+                      <div>{one.comment}</div>
+                    </StComment>
+                  );
+                } else {
+                  return null;
+                }
               })}
             </StCommentList>
           </div>
