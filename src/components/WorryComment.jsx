@@ -28,6 +28,7 @@ export default function BasicStack() {
     comment: "",
     commentDate: "",
     editCheck: false,
+    postId: id,
   }); // Material UI
 
   useEffect(() => {

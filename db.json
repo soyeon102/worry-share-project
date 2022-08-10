@@ -1,0 +1,70 @@
+{
+  "worries": [
+    {
+      "id": 1,
+      "title": "타이틀입니다.",
+      "content": "내용입니다.",
+      "user": "작성자",
+      "date": "2022-08-10T13:45:00.000Z",
+      "isDone": false
+    },
+    {
+      "user": "작성자2",
+      "title": "제목2",
+      "content": "내용2",
+      "id": 2,
+      "isDone": false
+    },
+    {
+      "user": "작성자3",
+      "title": "제목3",
+      "content": "내용3",
+      "id": 3,
+      "isDone": false
+    },
+    {
+      "user": "작성자4",
+      "title": "제목4",
+      "content": "내용4",
+      "id": 4,
+      "isDone": false
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "commentUser": "유저이름1",
+      "comment": "코멘트1",
+      "commentDate": "2022-08-11T10:23:00.000Z",
+      "editCheck": false
+    },
+    {
+      "id": 2,
+      "commentUser": "유저이름2",
+      "comment": "코멘트2",
+      "commentDate": "2022-08-11T10:23:00.000Z",
+      "editCheck": false
+    },
+    {
+      "id": 3,
+      "commentUser": "",
+      "comment": "asdf",
+      "commentDate": "",
+      "editCheck": false
+    },
+    {
+      "id": 4,
+      "commentUser": "",
+      "comment": "sadf",
+      "commentDate": "",
+      "editCheck": false
+    },
+    {
+      "id": 5,
+      "commentUser": "",
+      "comment": "sadfasdf",
+      "commentDate": "",
+      "editCheck": false
+    }
+  ]
+}

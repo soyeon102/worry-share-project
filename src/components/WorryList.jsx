@@ -21,10 +21,40 @@ const WorryList = () => {
   }, []);
 
   return (
-    <div>
-      {worries?.map((worry) => (
-        <WorryCard key={worry.id} worry={worry} />
-      ))}
+    <div
+      onClick={() => {
+        navigate("/detail/1");
+      }}
+    >
+      <StWorryList>
+        <StListtitle>
+          {worries?.map((worry) => (
+            <span key={worry.id}>{worry.title}</span>
+          ))}
+        </StListtitle>
+
+        <IconButton
+          color="primary"
+          onClick={(e) => {
+            e.stopPropagation();
+          }}
+        >
+          <DeleteIcon />
+        </IconButton>
+
+        <StListWriter>
+          작성자:{" "}
+          {worries?.map((worry) => (
+            <span key={worry.id}>{worry.user}</span>
+          ))}
+        </StListWriter>
+      </StWorryList>
+
+      <div>
+        {worries?.map((worry) => (
+          <WorryCard key={worry.id} worry={worry} />
+        ))}
+      </div>
     </div>
   );
 };
