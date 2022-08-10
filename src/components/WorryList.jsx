@@ -19,8 +19,6 @@ const WorryList = () => {
     fetchWorries();
   }, []);
 
-  console.log(worries);
-
   return (
     <div
       onClick={() => {
@@ -35,7 +33,7 @@ const WorryList = () => {
         </StListtitle>
 
         <IconButton
-          color='primary'
+          color="primary"
           onClick={(e) => {
             e.stopPropagation();
           }}

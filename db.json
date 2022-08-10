@@ -5,19 +5,29 @@
       "title": "타이틀입니다.",
       "content": "내용입니다.",
       "user": "작성자",
-      "date": "2022-08-10T13:45:00.000Z"
+      "date": "2022-08-10T13:45:00.000Z",
+      "isDone": false
     },
     {
-      "user": "테스트1 작성자1",
-      "title": "테스트1 제목1",
-      "content": "테스트1 내용1",
-      "id": 2
+      "user": "작성자2",
+      "title": "제목2",
+      "content": "내용2",
+      "id": 2,
+      "isDone": false
     },
     {
-      "user": "12345",
-      "title": "ㄴㅁㅇㄹ",
-      "content": "ㅁㄴㅇㄹ",
-      "id": 3
+      "user": "작성자3",
+      "title": "제목3",
+      "content": "내용3",
+      "id": 3,
+      "isDone": false
+    },
+    {
+      "user": "작성자4",
+      "title": "제목4",
+      "content": "내용4",
+      "id": 4,
+      "isDone": false
     }
   ],
   "comments": [
@@ -39,6 +49,20 @@
       "id": 3,
       "commentUser": "",
       "comment": "asdf",
+      "commentDate": "",
+      "editCheck": false
+    },
+    {
+      "id": 4,
+      "commentUser": "",
+      "comment": "sadf",
+      "commentDate": "",
+      "editCheck": false
+    },
+    {
+      "id": 5,
+      "commentUser": "",
+      "comment": "sadfasdf",
       "commentDate": "",
       "editCheck": false
     }
