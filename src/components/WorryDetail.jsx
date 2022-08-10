@@ -29,7 +29,7 @@ const WorryDetail = () => {
   }
 
   const onClickEditButtonHandler = (WorryId, edit) => {
-    axios.patch(`http://localhost:3000/detail/${WorryId}`, edit);
+    axios.patch(`http://localhost:3001/detail/${WorryId}`, edit);
   };
   return (
     <>
