@@ -1,21 +1,19 @@
-import Layout from '../layout/Layout';
+import Layout from "../layout/Layout";
 import styled from "styled-components";
-import WorryList from '../WorryList';
+import WorryList from "../WorryList";
 
 const ListPage = () => {
   return (
     <Layout>
-      <StListtitle>
-      고민 리스트  
-      </StListtitle>
-      <WorryList/>
+      <StListtitle>고민 리스트</StListtitle>
+      <WorryList />
     </Layout>
   );
 };
 
 export default ListPage;
 
-const StListtitle=styled.div`
-  font-size:25px;
-  margin-top:5%;
-`
+const StListtitle = styled.div`
+  font-size: 25px;
+  margin-top: 5%;
+`;

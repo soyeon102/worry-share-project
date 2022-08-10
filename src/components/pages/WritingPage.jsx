@@ -26,8 +26,17 @@ const WritingPage = () => {
   };
 
   const onSubmitHandler = (worry) => {
-    axios.post("http://localhost:3001/worries", worry);
-    //dispatch(addWorry({}));
+    // axios.post("http://localhost:3001/worries", worry);
+    if (worry.user === "" || worry.title === "" || worry.content === "") {
+      alert("입력하지 않은 항목이 있는지 확인 후 다시 시도해주세요.");
+    } else if (
+      worry.user !== "" &&
+      worry.title !== "" &&
+      worry.content !== ""
+    ) {
+      axios.post("http://localhost:3001/worries", worry);
+      navigate("/list");
+    }
   };
 
   useEffect(() => {
@@ -95,7 +104,7 @@ const WritingPage = () => {
             margin='5% 0 0 0'
             onClick={() => {
               onSubmitHandler(worry);
-              navigate("/list");
+              //navigate("/list");
             }}
           />
         </form>
