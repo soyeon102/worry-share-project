@@ -13,6 +13,7 @@ const WritingPage = () => {
     user: "",
     title: "",
     content: "",
+    isDone: false,
   });
 
   const navigate = useNavigate();
