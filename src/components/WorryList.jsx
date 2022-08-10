@@ -22,37 +22,11 @@ const WorryList = () => {
 
   return (
     <div>
-      <StWorryList>
-        {worries?.map((worry) => (
-          <WorryCard key={worry.id} worry={worry} />
-        ))}
-      </StWorryList>
+      {worries?.map((worry) => (
+        <WorryCard key={worry.id} worry={worry} />
+      ))}
     </div>
   );
 };
 
 export default WorryList;
-
-const StWorryList = styled.div`
-  margin-top: 15px;
-  display: flex;
-  flex-direction: column;
-  border: 1px solid red;
-  outline-color: #eee;
-  padding: 0 10px;
-  &:hover {
-    cursor: pointer;
-  }
-`;
-
-const StListtitle = styled.div`
-  display: flex;
-  font-size: 20px;
-  margin-top: 10px;
-  justify-content: space-between;
-`;
-
-const StListWriter = styled.div`
-  font-size: 10px;
-  margin-top: 10px;
-`;

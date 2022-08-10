@@ -29,7 +29,16 @@ const WritingPage = () => {
     // axios.post("http://localhost:3001/worries", worry);
     if (worry.user === "" || worry.title === "" || worry.content === "") {
       alert("입력하지 않은 항목이 있는지 확인 후 다시 시도해주세요.");
+    } else if (worry.user.length > 5) {
+      alert("이름을 5자 이내로 입력해주세요.");
+    } else if (worry.title.length > 50) {
+      alert("제목을 50자 이내로 입력해주세요.");
+    } else if (worry.content.length > 200) {
+      alert("내용을 200자 이내로 입력해주세요.");
     } else if (
+      worry.user.length <= 5 &&
+      worry.title.length <= 50 &&
+      worry.content.length <= 200 &&
       worry.user !== "" &&
       worry.title !== "" &&
       worry.content !== ""
