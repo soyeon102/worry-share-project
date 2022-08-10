@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { __getWorries, __updateWorries } from "../redux/modules/worrySlice";
+import { updateWorry, __getWorries } from "../redux/modules/worrySlice";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import styled from "styled-components";
@@ -14,9 +14,8 @@ const WorryDetail = () => {
   const navigate = useNavigate();
   const { isLoading, error, worries } = useSelector((state) => state.worries);
   const [targetId, setTargetId] = useState(null);
-  const [editWorry, setEditWorry] = useState({
-    title: "",
-  });
+  const [editWorry, setEditWorry] = useState(false);
+  const worry = worries.filter((worry) => worry.id == +id);
 
   useEffect(() => {
     dispatch(__getWorries());
@@ -41,9 +40,14 @@ const WorryDetail = () => {
   const onClickDeleteButtonHandler = (WorryId) => {
     axios.delete(`http://localhost:3001/worries/${WorryId}`);
   };
-  const onClickEditButtonHandler = (id) => {
-    console.log(id);
-    dispatch(__updateWorries(id));
+
+  const onClickEditButtonHandler = () => {
+    setEditWorry(!editWorry);
+    // dispatch(updateWorry(id));
+  };
+
+  const editHandler = (e) => {
+    console.log(e.target.value);
   };
   return (
     <>
@@ -68,18 +72,22 @@ const WorryDetail = () => {
       </StId>
 
       <div>
-        {worries.map((worry) => {
+        {worries?.map((worry) => {
           if (worry.isDone === false && worry.id == id) {
             return (
               <div key={worry.id}>
                 {" "}
                 <StTitle>{worry.title}</StTitle>
-                <StContent>{worry.content}</StContent>
+                {editWorry ? (
+                  <textarea onChange={editHandler} />
+                ) : (
+                  <StContent>{worry.content}</StContent>
+                )}
                 <StButtonDiv>
                   <StButton
                     id={worry.id}
                     onClick={() => {
-                      onClickEditButtonHandler(worry.id);
+                      onClickEditButtonHandler();
                     }}
                   >
                     수정하기
@@ -125,8 +133,9 @@ const WorryDetail = () => {
                 <StButtonDiv>
                   <StButton
                     id={id}
-                    onClick={(id) => {
-                      onClickEditButtonHandler(id);
+                    onClick={() => {
+                      setEditWorry({ ...worry, isDone: false });
+                      onClickEditButtonHandler(editWorry);
                     }}
                   >
                     수정완료

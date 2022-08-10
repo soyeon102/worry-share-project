@@ -1,11 +1,10 @@
 {
   "worries": [
     {
+      "user": "작성자1",
+      "title": "제목1",
+      "content": "내용1",
       "id": 1,
-      "title": "타이틀입니다.",
-      "content": "내용입니다.",
-      "user": "작성자",
-      "date": "2022-08-10T13:45:00.000Z",
       "isDone": false
     },
     {
@@ -87,6 +86,14 @@
       "commentDate": "",
       "editCheck": false,
       "postId": "3"
+    },
+    {
+      "id": 9,
+      "commentUser": "",
+      "comment": "ㅁㄴㅇㄹ",
+      "commentDate": "",
+      "editCheck": false,
+      "postId": "1"
     }
   ]
 }
