@@ -37,6 +37,7 @@ const WorryDetail = () => {
   if (error) {
     return <div>{error.message}</div>;
   }
+
   const onClickDeleteButtonHandler = (WorryId) => {
     axios.delete(`http://localhost:3001/worries/${WorryId}`);
   };

@@ -4,6 +4,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import axios from "axios"; // axios import 합니다.
+import WorryCard from "./WorryCard";
 
 const WorryList = () => {
   const navigate = useNavigate();
@@ -48,35 +49,14 @@ const WorryList = () => {
           ))}
         </StListWriter>
       </StWorryList>
+
+      <div>
+        {worries?.map((worry) => (
+          <WorryCard key={worry.id} worry={worry} />
+        ))}
+      </div>
     </div>
   );
 };
 
 export default WorryList;
-
-const StWorryList = styled.div`
-  height: 80px;
-  margin-top: 15px;
-  display: flex;
-  flex-direction: column;
-  border: solid 1px;
-  border-color: #eee;
-  border-radius: 10px;
-  outline-color: #eee;
-  padding: 0 10px;
-  &:hover {
-    cursor: pointer;
-  }
-`;
-
-const StListtitle = styled.div`
-  display: flex;
-  font-size: 20px;
-  margin-top: 10px;
-  justify-content: space-between;
-`;
-
-const StListWriter = styled.div`
-  font-size: 10px;
-  margin-top: 10px;
-`;
