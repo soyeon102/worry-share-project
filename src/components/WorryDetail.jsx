@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from "react";
+import * as React from "react";
+import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import styled from "styled-components";
-import axios from "axios";
-import { __getWorries } from "../redux/modules/worrySlice";
+import { updateWorry, __getWorries } from "../redux/modules/worrySlice";
 import { useDispatch, useSelector } from "react-redux";
-import { Satellite } from "@mui/icons-material";
+import axios from "axios";
+import styled from "styled-components";
+import Box from "@mui/material/Box";
+import TextField from "@mui/material/TextField";
 
 const WorryDetail = () => {
   let { id } = useParams();
@@ -12,13 +14,20 @@ const WorryDetail = () => {
   const navigate = useNavigate();
   const { isLoading, error, worries } = useSelector((state) => state.worries);
   const [targetId, setTargetId] = useState(null);
-  const [editWorry, setEditWorry] = useState({
-    title: "",
-  });
+  const [editWorry, setEditWorry] = useState(false);
+  const worry = worries.filter((worry) => worry.id == +id);
 
   useEffect(() => {
     dispatch(__getWorries());
   }, [dispatch]);
+
+  function MultilineTextFields() {
+    const [value, setValue] = React.useState("Controlled");
+
+    const handleChange = (event) => {
+      setValue(event.target.value);
+    };
+  }
 
   if (isLoading) {
     return <div>로딩 중...</div>;
@@ -28,8 +37,17 @@ const WorryDetail = () => {
     return <div>{error.message}</div>;
   }
 
-  const onClickEditButtonHandler = (WorryId, edit) => {
-    axios.patch(`http://localhost:3001/detail/${WorryId}`, edit);
+  const onClickDeleteButtonHandler = (WorryId) => {
+    axios.delete(`http://localhost:3001/worries/${WorryId}`);
+  };
+
+  const onClickEditButtonHandler = () => {
+    setEditWorry(!editWorry);
+    // dispatch(updateWorry(id));
+  };
+
+  const editHandler = (e) => {
+    console.log(e.target.value);
   };
   return (
     <>
@@ -50,25 +68,84 @@ const WorryDetail = () => {
           </span>
         </StUser>
 
-        <button onClick={() => navigate("/list")}>이전으로</button>
+        <StButton onClick={() => navigate("/list")}>이전으로</StButton>
       </StId>
-      <StTitle>
+
+      <div>
         {worries?.map((worry) => {
-          if (worry.id == id) {
-            return worry.title;
+          if (worry.isDone === false && worry.id == id) {
+            return (
+              <div key={worry.id}>
+                {" "}
+                <StTitle>{worry.title}</StTitle>
+                {editWorry ? (
+                  <textarea onChange={editHandler} />
+                ) : (
+                  <StContent>{worry.content}</StContent>
+                )}
+                <StButtonDiv>
+                  <StButton
+                    id={worry.id}
+                    onClick={() => {
+                      onClickEditButtonHandler();
+                    }}
+                  >
+                    수정하기
+                  </StButton>
+                  <StButton
+                    id={worry.id}
+                    onClick={() => {
+                      onClickDeleteButtonHandler(worry.id);
+                    }}
+                  >
+                    삭제하기
+                  </StButton>
+                </StButtonDiv>
+              </div>
+            );
+          }
+          if (worry.isDone === true && worry.id == id) {
+            return (
+              <StEditContent key={worry.id}>
+                <StBox
+                  component="form"
+                  sx={{
+                    "& .MuiTextField-root": { m: 1, width: "108ch" },
+                  }}
+                  noValidate
+                  autoComplete="off"
+                >
+                  <TextField
+                    id="outlined-multiline-static"
+                    label="제목 수정"
+                    multiline
+                    rows={1}
+                    defaultValue={worry.title}
+                  />{" "}
+                  <TextField
+                    id="outlined-multiline-static"
+                    label="게시글 수정"
+                    multiline
+                    rows={10}
+                    defaultValue={worry.content}
+                  />
+                </StBox>
+                <StButtonDiv>
+                  <StButton
+                    id={id}
+                    onClick={() => {
+                      setEditWorry({ ...worry, isDone: false });
+                      onClickEditButtonHandler(editWorry);
+                    }}
+                  >
+                    수정완료
+                  </StButton>
+                </StButtonDiv>
+              </StEditContent>
+            );
           }
         })}
-      </StTitle>
-      <StContent>
-        {worries?.map((worry) => {
-          if (worry.id == id) {
-            return worry.content;
-          }
-        })}
-      </StContent>
-      <StButtonDiv>
-        <StButton>수정하기</StButton>
-      </StButtonDiv>
+      </div>
     </>
   );
 };
@@ -107,16 +184,32 @@ const StContent = styled.div`
   text-align: center;
 `;
 
-const StButton = styled.button``;
+const StButton = styled.button`
+  padding: 10px;
+`;
 
 const StButtonDiv = styled.div`
   display: flex;
   justify-content: flex-end;
-
-  width: 90%;
+  gap: 5px;
+  width: 80%;
+  margin: 0px auto;
 `;
 
 const StContainer = styled.div`
   display: flex;
   flex-direction: column;
+`;
+
+const StEditContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
+
+const StBox = styled(Box)`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
 `;

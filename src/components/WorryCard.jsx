@@ -12,24 +12,21 @@ const WorryCard = (props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const onClickDeleteButtonHandler = (e) => {
-    // e.preventDefault();
-    e.stopPropagation();
-    if (window.confirm("삭제하시겠습니까?"))
-      dispatch(__deleteWorries(props.worry.id));
-    window.location.reload();
-  };
-
   return (
-    <div onClick={() => navigate(`/detail/${props.worry.id}`)}>
-      <StWorryList>
-        <StListtitle>{props.worry.title}</StListtitle>
+    <StWorryList onClick={() => navigate(`/detail/${props.worry.id}`)}>
+      <StListtitle>
+        제목:{props.worry.title}{" "}
+        <CommonButton
+          onClick={(e) => {
+            e.stopPropagation();
+            dispatch(__deleteWorries(props.worry.id));
+          }}
+          iconColor='primary'
+        />
+      </StListtitle>
 
-        <CommonButton onClick={onClickDeleteButtonHandler} />
-
-        <StListWriter>{props.worry.user}</StListWriter>
-      </StWorryList>
-    </div>
+      <StListWriter>작성자:{props.worry.user}</StListWriter>
+    </StWorryList>
   );
 };
 
@@ -37,8 +34,6 @@ export default WorryCard;
 
 const StWorryList = styled.div`
   margin-top: 15px;
-  display: flex;
-  flex-direction: column;
   border: solid 1px;
   border-color: blue;
   border-radius: 10px;
@@ -50,13 +45,13 @@ const StWorryList = styled.div`
 `;
 
 const StListtitle = styled.div`
-  display: flex;
   font-size: 20px;
-  margin-top: 10px;
+  display: flex;
   justify-content: space-between;
 `;
 
 const StListWriter = styled.div`
-  font-size: 10px;
-  margin-top: 10px;
+  font-size: 15px;
+  padding-top: 40px;
+  padding-bottom: 10px;
 `;
