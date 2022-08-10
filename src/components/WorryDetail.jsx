@@ -27,9 +27,11 @@ const WorryDetail = () => {
   if (error) {
     return <div>{error.message}</div>;
   }
-
+  const onClickDeleteButtonHandler = (WorryId) => {
+    axios.delete(`http://localhost:3001/worries/${WorryId}`);
+  };
   const onClickEditButtonHandler = (WorryId, edit) => {
-    axios.patch(`http://localhost:3000/detail/${WorryId}`, edit);
+    axios.patch(`http://localhost:3001/worries/${WorryId}`, edit);
   };
   return (
     <>
@@ -50,7 +52,7 @@ const WorryDetail = () => {
           </span>
         </StUser>
 
-        <button onClick={() => navigate("/list")}>이전으로</button>
+        <StButton onClick={() => navigate("/list")}>이전으로</StButton>
       </StId>
       <StTitle>
         {worries?.map((worry) => {
@@ -67,7 +69,22 @@ const WorryDetail = () => {
         })}
       </StContent>
       <StButtonDiv>
-        <StButton>수정하기</StButton>
+        <StButton
+          id={id}
+          onClick={(id) => {
+            onClickEditButtonHandler(id);
+          }}
+        >
+          수정하기
+        </StButton>
+        <StButton
+          id={id}
+          onClick={(id) => {
+            onClickDeleteButtonHandler(id);
+          }}
+        >
+          삭제하기
+        </StButton>
       </StButtonDiv>
     </>
   );
@@ -107,12 +124,14 @@ const StContent = styled.div`
   text-align: center;
 `;
 
-const StButton = styled.button``;
+const StButton = styled.button`
+  padding: 10px;
+`;
 
 const StButtonDiv = styled.div`
   display: flex;
   justify-content: flex-end;
-
+  gap: 5px;
   width: 90%;
 `;
 
