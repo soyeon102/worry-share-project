@@ -7,6 +7,7 @@ import axios from "axios";
 import styled from "styled-components";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
+import CommonButton from "./elements/CommonButton";
 
 const WorryDetail = () => {
   let { id } = useParams();
@@ -61,14 +62,18 @@ const WorryDetail = () => {
             })}
           </span>
           <span>
-            작성시간 : {""}
             {worries?.map((worry) => {
               if (worry.id == id) return worry.date;
             })}
           </span>
         </StUser>
 
-        <StButton onClick={() => navigate("/list")}>이전으로</StButton>
+        <CommonButton
+          onClick={() => navigate("/list")}
+          text="이전으로"
+          variant="outlined"
+          margin="0"
+        />
       </StId>
 
       <div>
@@ -79,27 +84,28 @@ const WorryDetail = () => {
                 {" "}
                 <StTitle>{worry.title}</StTitle>
                 {editWorry ? (
-                  <textarea onChange={editHandler} />
+                  <StTextarea onChange={editHandler} />
                 ) : (
                   <StContent>{worry.content}</StContent>
                 )}
                 <StButtonDiv>
-                  <StButton
-                    id={worry.id}
+                  <CommonButton
+                    text="수정하기"
+                    variant="outlined"
+                    margin="0"
                     onClick={() => {
                       onClickEditButtonHandler();
                     }}
-                  >
-                    수정하기
-                  </StButton>
-                  <StButton
-                    id={worry.id}
+                  />
+                  <CommonButton
+                    text="삭제하기"
+                    variant="outlined"
+                    margin="0"
                     onClick={() => {
                       onClickDeleteButtonHandler(worry.id);
+                      navigate("/list");
                     }}
-                  >
-                    삭제하기
-                  </StButton>
+                  />
                 </StButtonDiv>
               </div>
             );
@@ -157,7 +163,6 @@ const StId = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  width: 80%;
   margin: 20px auto;
 `;
 
@@ -167,18 +172,16 @@ const StUser = styled.div`
 `;
 
 const StTitle = styled.div`
-  box-shadow: 0px 0px 3px 1px lightcoral;
-  border: none;
-  width: 80%;
+  border: 1px solid black;
+  border-radius: 4px;
   height: 50px;
   margin: 20px auto;
   text-align: center;
 `;
 
 const StContent = styled.div`
-  box-shadow: 0px 0px 3px 1px lightcoral;
-  border: none;
-  width: 80%;
+  border: 1px solid black;
+  border-radius: 6px;
   height: 250px;
   margin: 20px auto;
   text-align: center;
@@ -192,7 +195,6 @@ const StButtonDiv = styled.div`
   display: flex;
   justify-content: flex-end;
   gap: 5px;
-  width: 80%;
   margin: 0px auto;
 `;
 
@@ -212,4 +214,10 @@ const StBox = styled(Box)`
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
+`;
+
+const StTextarea = styled.textarea`
+  width: 100%;
+  height: 250px;
+  box-sizing: border-box;
 `;

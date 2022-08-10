@@ -16,28 +16,28 @@ const StTextArea = styled.textarea`
   width: 100%;
   height: 250px;
   margin-top: 15px;
-
-  border: solid 1px;
+  padding: 20px;
+  box-sizing: border-box;
+  border: solid 1px #1976d2;
   border-color: #eee;
   border-radius: 10px;
-  outline-color: blue;
+  font-size: 16px;
 
-  font-size: 17px;
-  font-family: roboto;
   &:hover {
-    border: solid 2px;
-    border-color: black;
+    border: solid 1px black;
   }
 
-  ::placeholder {
+  &::placeholder {
     color: #b3acac;
   }
 `;
+
 const StBox = styled.div`
   display: flex;
   flex-direction: column;
   margin-top: 1%;
 `;
+
 const Stlabel = styled.label`
   font-size: 20px;
   font-weight: bold;

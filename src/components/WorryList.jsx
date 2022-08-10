@@ -5,19 +5,16 @@ import { useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import axios from "axios"; // axios import 합니다.
 import WorryCard from "./WorryCard";
+import { useDispatch, useSelector } from "react-redux";
+import { __getWorries } from "../redux/modules/worrySlice";
 
 const WorryList = () => {
   const navigate = useNavigate();
-  const [worries, setWorries] = useState(null);
-
-  const fetchWorries = async () => {
-    const { data } = await axios.get("http://localhost:3001/worries");
-    setWorries(data); // 서버로부터 fetching한 데이터를 useState의 state로 set 합니다.
-  };
+  const dispatch = useDispatch();
+  const worries = useSelector((state) => state.worries.worries);
 
   useEffect(() => {
-    // effect 구문에 생성한 함수를 넣어 실행합니다.
-    fetchWorries();
+    dispatch(__getWorries());
   }, []);
 
   return (
@@ -37,9 +34,8 @@ const StWorryList = styled.div`
   margin-top: 15px;
   display: flex;
   flex-direction: column;
-  border: 1px solid red;
   outline-color: #eee;
-  padding: 0 10px;
+
   &:hover {
     cursor: pointer;
   }

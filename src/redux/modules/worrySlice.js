@@ -17,34 +17,21 @@ export const __deleteWorries = createAsyncThunk(
   "worries/deleteWorries",
   async (payload, thunkAPI) => {
     await axios.delete(`http://localhost:3001/worries/${payload}`);
-
     return payload;
   }
 );
 
 const initialState = {
-  worries: [{ id: 1 }],
+  worries: [],
+  comments: [],
   isLoading: false,
   error: null,
-  comments: [],
 };
 
 export const worrySlice = createSlice({
   name: "worry",
   initialState,
-  reducers: {
-    addWorry: (state, action) => {
-      console.log("addWorries", state.worries);
-      return [...state, action.worry];
-    },
-    deleteWorry: (state, action) => {
-      console.log("deleteWorries", state.worries);
-      state.worrys = state.filter((worry) => worry.id !== action.id);
-    }, // ??
-    updateWorry: (state, action) => {
-      console.log("state", state.worries, "action", action);
-    },
-  },
+  reducers: {},
   extraReducers: {
     [__getWorries.pending]: (state) => {
       state.isLoading = true;
@@ -72,5 +59,5 @@ export const worrySlice = createSlice({
   },
 });
 
-export const { addWorry, deleteWorry, updateWorry } = worrySlice.actions;
+// export const { addWorry, deleteWorry, updateWorry } = worrySlice.actions;
 export default worrySlice.reducer;
