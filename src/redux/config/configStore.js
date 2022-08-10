@@ -1,8 +1,12 @@
-import { configureStore } from '@reduxjs/toolkit';
-import worrySlice from '../modules/worrySlice';
+import { configureStore } from "@reduxjs/toolkit";
+
+import commentsSlice from "../modules/commentsSlice";
+import worrySlice from "../modules/worrySlice";
 
 export const store = configureStore({
   reducer: {
-    worrys: worrySlice,
+    worries: worrySlice,
+
+    comments: commentsSlice,
   },
 });
