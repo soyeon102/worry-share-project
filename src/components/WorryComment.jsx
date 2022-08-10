@@ -4,12 +4,11 @@ import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Stack from "@mui/material/Stack";
 import { styled } from "@mui/material/styles";
-import { useDispatch, useSelector } from "react-redux";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { __getComments } from "../redux/modules/commentsSlice";
-import { addComment } from "../redux/modules/commentsSlice";
+
 import axios from "axios";
+import CommonButton from "./elements/CommonButton";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -19,7 +18,7 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
-export default function BasicStack() {
+const WorryComment = () => {
   let { id } = useParams();
   const [comments, setComments] = useState();
   const [comment, setComment] = useState({
@@ -31,21 +30,20 @@ export default function BasicStack() {
     postId: id,
   }); // Material UI
 
-  useEffect(() => {
-    fetchtodos();
-  }, []);
-
   const fetchtodos = async () => {
     const { data } = await axios.get("http://localhost:3001/comments");
     setComments(data);
   };
-  // console.log("comments-->", comments);
 
   const onClickAddComment = async (comment) => {
     await axios.post("http://localhost:3001/comments", comment);
     fetchtodos();
   };
-  // console.log(comment);
+
+  useEffect(() => {
+    fetchtodos();
+  }, []);
+
   return (
     <>
       <Box sx={{ width: "100%" }}>
@@ -66,9 +64,11 @@ export default function BasicStack() {
               }}
             />
 
-            <StAddButton onClick={() => onClickAddComment(comment)}>
-              +
-            </StAddButton>
+            <CommonButton
+              text="+"
+              variant="outlined"
+              onClick={() => onClickAddComment(comment)}
+            />
           </StCommentAdd>
           <div>
             <StCommentList>
@@ -90,14 +90,16 @@ export default function BasicStack() {
       </Box>
     </>
   );
-}
+};
+
+export default WorryComment;
 
 const StCommentAdd = AnotherStyled(Item)`
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  width: 79%;
+  width: 100%;
   margin: 30px auto;
   
 `;
@@ -120,15 +122,14 @@ const StAddButton = AnotherStyled.button`
 `;
 
 const StCommentList = AnotherStyled.div`
-display: flex;
-flex-direction: column;
-gap: 10px;
-width: 80%;
-margin: 0px auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0px auto;
 `;
 
 const StComment = styled(Item)({
-  border: "2px solid lightblue",
+  border: "1px solid black",
   height: "40px",
   display: "flex",
   flexDirection: "column",

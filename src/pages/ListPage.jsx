@@ -1,6 +1,6 @@
-import Layout from "../layout/Layout";
+import Layout from "../components/layout/Layout";
+import WorryList from "../components/WorryList";
 import styled from "styled-components";
-import WorryList from "../WorryList";
 
 const ListPage = () => {
   return (
