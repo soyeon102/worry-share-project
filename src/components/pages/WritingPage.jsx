@@ -86,21 +86,21 @@ const WritingPage = () => {
           }}
         >
           <CommonInput
-            text='이름을 입력해주세요.'
+            text='이름을 입력해주세요.(5자 이내)'
             id='Writer'
             labeltext='작성자'
             onChange={handleinputUser}
           />
 
           <CommonInput
-            text='제목을 입력해주세요.'
+            text='제목을 입력해주세요.(50자 이내)'
             id='Title'
             labeltext='제목'
             onChange={handleinputTitle}
           />
 
           <CommonTextArea
-            text='내용을 입력해주세요.'
+            text='내용을 입력해주세요.(200자 이내)'
             id='Content'
             labeltext='내용'
             onChange={handleinputContent}
