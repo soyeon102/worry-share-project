@@ -39,6 +39,8 @@ const WorryDetail = () => {
 
   const onClickDeleteButtonHandler = (WorryId) => {
     axios.delete(`http://localhost:3001/worries/${WorryId}`);
+    dispatch(__getWorries());
+    navigate("/list");
   };
 
   const onClickEditButtonHandler = () => {
@@ -47,7 +49,7 @@ const WorryDetail = () => {
   };
 
   const editHandler = (e) => {
-    console.log(e.target.value);
+    const { value, name } = e.target.value;
   };
   return (
     <>
@@ -76,74 +78,103 @@ const WorryDetail = () => {
           if (worry.isDone === false && worry.id == id) {
             return (
               <div key={worry.id}>
-                {" "}
-                <StTitle>{worry.title}</StTitle>
-                {editWorry ? (
-                  <textarea onChange={editHandler} />
-                ) : (
-                  <StContent>{worry.content}</StContent>
-                )}
-                <StButtonDiv>
-                  <StButton
-                    id={worry.id}
-                    onClick={() => {
-                      onClickEditButtonHandler();
-                    }}
-                  >
-                    수정하기
-                  </StButton>
-                  <StButton
-                    id={worry.id}
-                    onClick={() => {
-                      onClickDeleteButtonHandler(worry.id);
-                    }}
-                  >
-                    삭제하기
-                  </StButton>
-                </StButtonDiv>
+                <div>
+                  {editWorry ? (
+                    <StEditContent key={worry.id}>
+                      <StBox
+                        component="form"
+                        sx={{
+                          "& .MuiTextField-root": { m: 1, width: "108ch" },
+                        }}
+                        noValidate
+                        autoComplete="off"
+                      >
+                        <TextField
+                          id="outlined-multiline-static"
+                          label="제목 수정"
+                          multiline
+                          rows={1}
+                          defaultValue={worry.title}
+                        />{" "}
+                        <TextField
+                          id="outlined-multiline-static"
+                          label="게시글 수정"
+                          multiline
+                          rows={10}
+                          defaultValue={worry.content}
+                        />
+                      </StBox>
+                      <StButtonDiv>
+                        <StButton
+                          id={worry.id}
+                          onClick={() => {
+                            onClickEditButtonHandler();
+                          }}
+                        >
+                          수정완료
+                        </StButton>
+                      </StButtonDiv>
+                    </StEditContent>
+                  ) : (
+                    <div>
+                      <StTitle>{worry.title}</StTitle>
+                      <StContent>{worry.content}</StContent>
+                      <StButtonDiv>
+                        <StButton
+                          id={worry.id}
+                          onClick={() => {
+                            onClickEditButtonHandler();
+                          }}
+                        >
+                          수정하기
+                        </StButton>
+                        <StButton
+                          id={worry.id}
+                          onClick={() => {
+                            onClickDeleteButtonHandler(worry.id);
+                          }}
+                        >
+                          삭제하기
+                        </StButton>
+                      </StButtonDiv>
+                    </div>
+                  )}
+                </div>
               </div>
             );
           }
-          if (worry.isDone === true && worry.id == id) {
-            return (
-              <StEditContent key={worry.id}>
-                <StBox
-                  component="form"
-                  sx={{
-                    "& .MuiTextField-root": { m: 1, width: "108ch" },
-                  }}
-                  noValidate
-                  autoComplete="off"
-                >
-                  <TextField
-                    id="outlined-multiline-static"
-                    label="제목 수정"
-                    multiline
-                    rows={1}
-                    defaultValue={worry.title}
-                  />{" "}
-                  <TextField
-                    id="outlined-multiline-static"
-                    label="게시글 수정"
-                    multiline
-                    rows={10}
-                    defaultValue={worry.content}
-                  />
-                </StBox>
-                <StButtonDiv>
-                  <StButton
-                    id={id}
-                    onClick={() => {
-                      setEditWorry({ ...worry, isDone: false });
-                      onClickEditButtonHandler(editWorry);
-                    }}
-                  >
-                    수정완료
-                  </StButton>
-                </StButtonDiv>
-              </StEditContent>
-            );
-          }
+          // if (worry.isDone === true && worry.id == id) {
+          //   return (
+          //     <StEditContent key={worry.id}>
+          //       <StBox
+          //         component="form"
+          //         sx={{
+          //           "& .MuiTextField-root": { m: 1, width: "108ch" },
+          //         }}
+          //         noValidate
+          //         autoComplete="off"
+          //       >
+          //         <TextField
+          //           id="outlined-multiline-static"
+          //           label="제목 수정"
+          //           multiline
+          //           rows={1}
+          //           defaultValue={worry.title}
+          //         />{" "}
+          //         <TextField
+          //           id="outlined-multiline-static"
+          //           label="게시글 수정"
+          //           multiline
+          //           rows={10}
+          //           defaultValue={worry.content}
+          //         />
+          //       </StBox>
+          //       <StButtonDiv>
+          //         <StButton>수정완료</StButton>
+          //       </StButtonDiv>
+          //     </StEditContent>
+          //   );
+          // }
         })}
       </div>
     </>
@@ -196,11 +227,6 @@ const StButtonDiv = styled.div`
   margin: 0px auto;
 `;
 
-const StContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
 const StEditContent = styled.div`
   display: flex;
   flex-direction: column;
@@ -212,4 +238,8 @@ const StBox = styled(Box)`
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
+`;
+
+const StTextArea = styled.textarea`
+  width: 80%;
 `;

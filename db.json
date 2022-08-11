@@ -1,25 +1,18 @@
 {
   "worries": [
     {
-      "user": "작성자1",
-      "title": "제목1",
-      "content": "내용1",
-      "id": 1,
-      "isDone": false
+      "user": "작2",
+      "title": "제2",
+      "content": "내2",
+      "isDone": false,
+      "id": 2
     },
     {
-      "user": "작성자2",
-      "title": "제목2",
-      "content": "내용2",
-      "id": 2,
-      "isDone": false
-    },
-    {
-      "user": "작성자3",
-      "title": "제목3",
-      "content": "내용3",
-      "id": 3,
-      "isDone": false
+      "user": "작3",
+      "title": "제3",
+      "content": "내3",
+      "isDone": false,
+      "id": 3
     }
   ],
   "comments": [
@@ -94,6 +87,22 @@
       "commentDate": "",
       "editCheck": false,
       "postId": "1"
+    },
+    {
+      "id": 10,
+      "commentUser": "",
+      "comment": "첫댓글",
+      "commentDate": "",
+      "editCheck": false,
+      "postId": "4"
+    },
+    {
+      "id": 11,
+      "commentUser": "",
+      "comment": "두번쨰",
+      "commentDate": "",
+      "editCheck": false,
+      "postId": "4"
     }
   ]
 }
