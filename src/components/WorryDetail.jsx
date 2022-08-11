@@ -48,8 +48,7 @@ const WorryDetail = () => {
     const { value, name } = e.target;
     setPost({ ...post, id: id, [name]: value });
   };
-  console.log("worries", worries);
-  console.log("post", post);
+
   return (
     <>
       <StId>

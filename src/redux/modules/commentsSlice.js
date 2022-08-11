@@ -24,7 +24,6 @@ export const __deleteComments = createAsyncThunk(
   "comments/deleteComments",
   async (payload, thunkAPI) => {
     try {
-      console.log("payload", payload);
       const data = await axios.delete(
         `http://localhost:3001/comments/${payload}`
       );
@@ -56,7 +55,6 @@ export const commentsSlice = createSlice({
       state.isLoading = true;
     },
     [__deleteComments.fulfilled]: (state, action) => {
-      console.log("action.payload", action.payload);
       state.isLoading = false;
     },
     [__deleteComments.rejected]: (state, action) => {

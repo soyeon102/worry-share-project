@@ -53,12 +53,10 @@ export default function BasicStack() {
   };
 
   const onClickEditButtonHandler = (id) => {
-    console.log("수정버튼동작");
     setEditComment(!editComment);
   };
 
   const onClickDeleteHandler = (id) => {
-    console.log("삭제버튼동작");
     dispatch(__deleteComments(id));
     fetchtodos();
   };
