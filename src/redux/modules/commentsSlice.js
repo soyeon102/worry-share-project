@@ -20,6 +20,21 @@ export const __getComments = createAsyncThunk(
   }
 );
 
+export const __deleteComments = createAsyncThunk(
+  "comments/deleteComments",
+  async (payload, thunkAPI) => {
+    try {
+      console.log("payload", payload);
+      const data = await axios.delete(
+        `http://localhost:3001/comments/${payload}`
+      );
+      return thunkAPI.fulfillWithValue(data.data);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
 export const commentsSlice = createSlice({
   name: "comments",
   initialState,
@@ -36,18 +51,18 @@ export const commentsSlice = createSlice({
       state.isLoading = false;
       state.error = action.payload;
     },
-    /*[__deleteComments.pending]: (state, action) => {
+    [__deleteComments.pending]: (state, action) => {
       state.isLoading = true;
-      state.error = action.payload;
     },
     [__deleteComments.fulfilled]: (state, action) => {
+      console.log("action.payload", action.payload);
       state.isLoading = false;
-      state.error = action.payload;
+      state.comments = [...state.comments];
     },
     [__deleteComments.rejected]: (state, action) => {
       state.isLoading = false;
       state.error = action.payload;
-    },*/
+    },
   },
 });
 

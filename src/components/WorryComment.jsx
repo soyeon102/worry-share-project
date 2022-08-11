@@ -7,7 +7,10 @@ import { styled } from "@mui/material/styles";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { __getComments } from "../redux/modules/commentsSlice";
+import {
+  __deleteComments,
+  __getComments,
+} from "../redux/modules/commentsSlice";
 import { addComment } from "../redux/modules/commentsSlice";
 import axios from "axios";
 
@@ -21,6 +24,9 @@ const Item = styled(Paper)(({ theme }) => ({
 
 export default function BasicStack() {
   let { id } = useParams();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const [comments, setComments] = useState();
   const [comment, setComment] = useState({
     id: 0,
@@ -29,7 +35,8 @@ export default function BasicStack() {
     commentDate: "",
     editCheck: false,
     postId: id,
-  }); // Material UI
+  });
+  const [editComment, setEditComment] = useState(false);
 
   useEffect(() => {
     fetchtodos();
@@ -39,13 +46,22 @@ export default function BasicStack() {
     const { data } = await axios.get("http://localhost:3001/comments");
     setComments(data);
   };
-  // console.log("comments-->", comments);
 
   const onClickAddComment = async (comment) => {
     await axios.post("http://localhost:3001/comments", comment);
     fetchtodos();
   };
-  // console.log(comment);
+
+  const onClickEditButtonHandler = (id) => {
+    console.log("수정버튼동작");
+    setEditComment(!editComment);
+  };
+
+  const onClickDeleteHandler = (id) => {
+    console.log("삭제버튼동작");
+    dispatch(__deleteComments(id));
+    fetchtodos();
+  };
   return (
     <>
       <Box sx={{ width: "100%" }}>
@@ -71,20 +87,57 @@ export default function BasicStack() {
             </StAddButton>
           </StCommentAdd>
           <div>
-            <StCommentList>
-              {comments?.map((one) => {
-                if (one.postId == id) {
-                  return (
-                    <StComment key={one.id}>
-                      <div>{one.commentUser}</div>
-                      <div>{one.comment}</div>
-                    </StComment>
-                  );
-                } else {
-                  return null;
-                }
-              })}
-            </StCommentList>
+            {editComment ? (
+              <div>
+                <StCommentList>
+                  {comments?.map((one) => {
+                    if (one.postId == id) {
+                      return (
+                        <StComment key={one.id}>
+                          <div>{one.comment}</div>
+                          <StButton
+                            onClick={() => onClickEditButtonHandler(one.id)}
+                          >
+                            수정완료
+                          </StButton>
+                        </StComment>
+                      );
+                    } else {
+                      return null;
+                    }
+                  })}{" "}
+                </StCommentList>
+              </div>
+            ) : (
+              <StCommentList>
+                {comments?.map((one) => {
+                  if (one.postId == id) {
+                    return (
+                      <StComment key={one.id}>
+                        <div>{one.commentUser}</div>
+                        <div>{one.comment}</div>
+                        <span>
+                          <StButton
+                            id={one.id}
+                            onClick={() => onClickEditButtonHandler(one.id)}
+                          >
+                            댓글수정
+                          </StButton>
+                          <StButton
+                            id={one.id}
+                            onClick={() => onClickDeleteHandler(one.id)}
+                          >
+                            댓글삭제
+                          </StButton>
+                        </span>
+                      </StComment>
+                    );
+                  } else {
+                    return null;
+                  }
+                })}{" "}
+              </StCommentList>
+            )}
           </div>
         </Stack>
       </Box>
@@ -131,6 +184,11 @@ const StComment = styled(Item)({
   border: "2px solid lightblue",
   height: "40px",
   display: "flex",
-  flexDirection: "column",
+  flexDirection: "row",
+  justifyContent: "space-between",
   alignItems: "center",
 });
+
+const StButton = AnotherStyled.button`
+  padding: 5px;
+`;
