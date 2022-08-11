@@ -47,7 +47,7 @@ const WorryComment = () => {
 
   useEffect(() => {
     dispatch(__getComments());
-  }, []);
+  }, [dispatch]);
 
   return (
     <>

@@ -14,7 +14,7 @@ const WorryList = () => {
 
   useEffect(() => {
     dispatch(__getWorries());
-  }, []);
+  }, [dispatch]);
 
   return (
     <div>
