@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { updateWorry, __getWorries } from "../redux/modules/worrySlice";
+import { __updateWorries, __getWorries } from "../redux/modules/worrySlice";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import styled from "styled-components";
@@ -15,7 +15,7 @@ const WorryDetail = () => {
   const { isLoading, error, worries } = useSelector((state) => state.worries);
   const [targetId, setTargetId] = useState(null);
   const [editWorry, setEditWorry] = useState(false);
-  const worry = worries.filter((worry) => worry.id == +id);
+  const [post, setPost] = useState({ id: id });
 
   useEffect(() => {
     dispatch(__getWorries());
@@ -45,12 +45,19 @@ const WorryDetail = () => {
 
   const onClickEditButtonHandler = () => {
     setEditWorry(!editWorry);
-    // dispatch(updateWorry(id));
+  };
+
+  const onClickEditCompleteHandler = () => {
+    dispatch(__updateWorries(post));
+    setEditWorry(!editWorry);
   };
 
   const editHandler = (e) => {
-    const { value, name } = e.target.value;
+    const { value, name } = e.target;
+    setPost({ ...post, id: id, [name]: value });
   };
+  console.log("worries", worries);
+  console.log("post", post);
   return (
     <>
       <StId>
@@ -95,6 +102,8 @@ const WorryDetail = () => {
                           multiline
                           rows={1}
                           defaultValue={worry.title}
+                          onChange={editHandler}
+                          name="title"
                         />{" "}
                         <TextField
                           id="outlined-multiline-static"
@@ -102,13 +111,15 @@ const WorryDetail = () => {
                           multiline
                           rows={10}
                           defaultValue={worry.content}
+                          onChange={editHandler}
+                          name="content"
                         />
                       </StBox>
                       <StButtonDiv>
                         <StButton
                           id={worry.id}
                           onClick={() => {
-                            onClickEditButtonHandler();
+                            onClickEditCompleteHandler(worry.id, post);
                           }}
                         >
                           수정완료

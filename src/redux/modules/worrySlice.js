@@ -22,8 +22,25 @@ export const __deleteWorries = createAsyncThunk(
   }
 );
 
+export const __updateWorries = createAsyncThunk(
+  "worries/updateWorries",
+  async (payload, thunkAPI) => {
+    console.log("payload", payload);
+    try {
+      const data = await axios.patch(
+        `http://localhost:3001/worries/${payload.id}`,
+        payload
+      );
+      console.log("data", data.data);
+      return thunkAPI.fulfillWithValue(data.data);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
 const initialState = {
-  worries: [{ id: 1 }],
+  worries: [],
   isLoading: false,
   error: null,
   comments: [],
@@ -40,10 +57,14 @@ export const worrySlice = createSlice({
     deleteWorry: (state, action) => {
       console.log("deleteWorries", state.worries);
       state.worrys = state.filter((worry) => worry.id !== action.id);
-    }, // ??
-    updateWorry: (state, action) => {
-      console.log("state", state.worries, "action", action);
     },
+    // updateWorry: (state, action) => {
+    //   console.log("state", state.worries, "action", action);
+    //   axios.patch(
+    //     `http://localhost:3001/worries/${action.payload.id}`,
+    //     action.payload
+    //   );
+    // },
   },
   extraReducers: {
     [__getWorries.pending]: (state) => {
@@ -66,6 +87,19 @@ export const worrySlice = createSlice({
       );
     },
     [__deleteWorries.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    },
+
+    [__updateWorries.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [__updateWorries.fulfilled]: (state, action) => {
+      console.log("fulfilled-action", action.payload);
+      state.isLoading = false;
+      state.worries = [action.payload];
+    },
+    [__updateWorries.rejected]: (state, action) => {
       state.isLoading = false;
       state.error = action.payload;
     },
