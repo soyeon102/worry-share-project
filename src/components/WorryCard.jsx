@@ -4,7 +4,6 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import React from "react";
-import axios from "axios"; // axios import 합니다.
 import CommonButton from "./elements/CommonButton";
 import { __deleteWorries } from "../redux/modules/worrySlice";
 

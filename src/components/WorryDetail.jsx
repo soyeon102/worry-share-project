@@ -1,9 +1,12 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { updateWorry, __getWorries } from "../redux/modules/worrySlice";
+import {
+  updateWorry,
+  __deleteWorries,
+  __getWorries,
+} from "../redux/modules/worrySlice";
 import { useDispatch, useSelector } from "react-redux";
-import axios from "axios";
 import styled from "styled-components";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
@@ -39,7 +42,7 @@ const WorryDetail = () => {
   }
 
   const onClickDeleteButtonHandler = (WorryId) => {
-    axios.delete(`http://localhost:3001/worries/${WorryId}`);
+    dispatch(__deleteWorries(WorryId));
   };
 
   const onClickEditButtonHandler = () => {

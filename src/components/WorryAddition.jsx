@@ -3,9 +3,10 @@ import CommonInput from "../components/elements/CommonInput";
 import CommonButton from "../components/elements/CommonButton";
 import CommonTextArea from "../components/elements/CommonTextArea";
 import React, { useState } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { useDispatch } from "react-redux";
+import { __addWorry } from "../redux/modules/worrySlice";
 
 const WorryAddition = () => {
   const [worry, setWorry] = useState({
@@ -16,6 +17,7 @@ const WorryAddition = () => {
   });
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const onSubmitHandler = (worry) => {
     if (worry.user === "" || worry.title === "" || worry.content === "") {
@@ -34,7 +36,7 @@ const WorryAddition = () => {
       worry.title !== "" &&
       worry.content !== ""
     ) {
-      axios.post("http://localhost:3001/worries", worry);
+      dispatch(__addWorry(worry));
       navigate("/list");
     }
   };

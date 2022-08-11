@@ -3,7 +3,6 @@ import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
-import axios from "axios"; // axios import 합니다.
 import WorryCard from "./WorryCard";
 import { useDispatch, useSelector } from "react-redux";
 import { __getWorries } from "../redux/modules/worrySlice";

@@ -6,9 +6,13 @@ import Stack from "@mui/material/Stack";
 import { styled } from "@mui/material/styles";
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
-
-import axios from "axios";
 import CommonButton from "./elements/CommonButton";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  __addComment,
+  __getComments,
+  __deleteComment,
+} from "../redux/modules/commentsSlice";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -20,7 +24,10 @@ const Item = styled(Paper)(({ theme }) => ({
 
 const WorryComment = () => {
   let { id } = useParams();
-  const [comments, setComments] = useState();
+  const dispatch = useDispatch();
+
+  const comments = useSelector((state) => state.comments.comments);
+
   const [comment, setComment] = useState({
     id: 0,
     commentUser: "",
@@ -30,18 +37,16 @@ const WorryComment = () => {
     postId: id,
   }); // Material UI
 
-  const fetchtodos = async () => {
-    const { data } = await axios.get("http://localhost:3001/comments");
-    setComments(data);
+  const onClickAddComment = (comment) => {
+    dispatch(__addComment(comment));
   };
 
-  const onClickAddComment = async (comment) => {
-    await axios.post("http://localhost:3001/comments", comment);
-    fetchtodos();
+  const onClickDeleteComment = (commentId) => {
+    dispatch(__deleteComment(commentId));
   };
 
   useEffect(() => {
-    fetchtodos();
+    dispatch(__getComments());
   }, []);
 
   return (
@@ -76,8 +81,16 @@ const WorryComment = () => {
                 if (one.postId == id) {
                   return (
                     <StComment key={one.id}>
-                      <div>{one.commentUser}</div>
-                      <div>{one.comment}</div>
+                      <div>
+                        <div>{one.commentUser}</div>
+                        <div>{one.comment}</div>
+                      </div>
+                      <CommonButton
+                        del
+                        onClick={() => {
+                          onClickDeleteComment(one.id);
+                        }}
+                      />
                     </StComment>
                   );
                 } else {

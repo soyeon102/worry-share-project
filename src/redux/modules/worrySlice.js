@@ -5,7 +5,7 @@ export const __getWorries = createAsyncThunk(
   "worries/getWorries",
   async (payload, thunkAPI) => {
     try {
-      const data = await axios.get("http://localhost:3001/worries");
+      const data = await axios.get("https://worry-share.herokuapp.com/worries");
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -13,17 +13,27 @@ export const __getWorries = createAsyncThunk(
   }
 );
 
+export const __addWorry = createAsyncThunk(
+  "worries/addWorry",
+  async (newWorry) => {
+    const data = await axios.post(
+      "https://worry-share.herokuapp.com/worries",
+      newWorry
+    );
+    return data.data;
+  }
+);
+
 export const __deleteWorries = createAsyncThunk(
   "worries/deleteWorries",
   async (payload, thunkAPI) => {
-    await axios.delete(`http://localhost:3001/worries/${payload}`);
+    await axios.delete(`https://worry-share.herokuapp.com/worries/${payload}`);
     return payload;
   }
 );
 
 const initialState = {
   worries: [],
-  comments: [],
   isLoading: false,
   error: null,
 };
@@ -43,6 +53,9 @@ export const worrySlice = createSlice({
     [__getWorries.rejected]: (state, action) => {
       state.isLoading = false;
       state.error = action.payload;
+    },
+    [__addWorry.fulfilled]: (state, action) => {
+      state.worries = [...state.worries, action.payload];
     },
     [__deleteWorries.pending]: (state, action) => {
       state.isLoading = true;
