@@ -21,14 +21,6 @@ const WorryDetail = () => {
     dispatch(__getWorries());
   }, [dispatch]);
 
-  function MultilineTextFields() {
-    const [value, setValue] = React.useState("Controlled");
-
-    const handleChange = (event) => {
-      setValue(event.target.value);
-    };
-  }
-
   if (isLoading) {
     return <div>로딩 중...</div>;
   }
@@ -82,7 +74,7 @@ const WorryDetail = () => {
 
       <div>
         {worries?.map((worry) => {
-          if (worry.isDone === false && worry.id == id) {
+          if (worry.id == id) {
             return (
               <div key={worry.id}>
                 <div>
@@ -119,7 +111,7 @@ const WorryDetail = () => {
                         <StButton
                           id={worry.id}
                           onClick={() => {
-                            onClickEditCompleteHandler(worry.id, post);
+                            onClickEditCompleteHandler();
                           }}
                         >
                           수정완료
@@ -154,38 +146,6 @@ const WorryDetail = () => {
               </div>
             );
           }
-          // if (worry.isDone === true && worry.id == id) {
-          //   return (
-          //     <StEditContent key={worry.id}>
-          //       <StBox
-          //         component="form"
-          //         sx={{
-          //           "& .MuiTextField-root": { m: 1, width: "108ch" },
-          //         }}
-          //         noValidate
-          //         autoComplete="off"
-          //       >
-          //         <TextField
-          //           id="outlined-multiline-static"
-          //           label="제목 수정"
-          //           multiline
-          //           rows={1}
-          //           defaultValue={worry.title}
-          //         />{" "}
-          //         <TextField
-          //           id="outlined-multiline-static"
-          //           label="게시글 수정"
-          //           multiline
-          //           rows={10}
-          //           defaultValue={worry.content}
-          //         />
-          //       </StBox>
-          //       <StButtonDiv>
-          //         <StButton>수정완료</StButton>
-          //       </StButtonDiv>
-          //     </StEditContent>
-          //   );
-          // }
         })}
       </div>
     </>

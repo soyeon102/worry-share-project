@@ -2,22 +2,22 @@
   "worries": [
     {
       "user": "작1",
-      "title": "제1수정ㄱㄱㄱ",
-      "content": "내1수정ㄱㄱㄱ",
+      "title": "제1수정ㄱㄱㄱㄱ",
+      "content": "내1수정ㄱㄱㄱㄱ",
       "isDone": false,
       "id": 1
     },
     {
       "user": "작2",
-      "title": "제2수정22",
+      "title": "제2",
       "content": "내2수정22",
       "isDone": false,
       "id": 2
     },
     {
       "user": "작3",
-      "title": "제3수정",
-      "content": "내3수정",
+      "title": "제3수정333",
+      "content": "내3수정333",
       "isDone": false,
       "id": 3
     }
