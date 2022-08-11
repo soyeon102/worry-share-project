@@ -21,7 +21,6 @@ const WorryDetail = () => {
     dispatch(__getWorries());
   }, [dispatch]);
 
-  console.log("isLoading", isLoading);
   if (isLoading) {
     return <div>로딩 중...</div>;
   }

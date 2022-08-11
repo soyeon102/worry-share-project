@@ -1,13 +1,6 @@
 {
   "worries": [
     {
-      "user": "작1",
-      "title": "제11",
-      "content": "내11",
-      "isDone": false,
-      "id": 1
-    },
-    {
       "user": "작2",
       "title": "제2",
       "content": "내2",
@@ -46,6 +39,30 @@
       "commentDate": "",
       "editCheck": false,
       "postId": "1"
+    },
+    {
+      "id": 4,
+      "commentUser": "",
+      "comment": "1234",
+      "commentDate": "",
+      "editCheck": false,
+      "postId": "3"
+    },
+    {
+      "id": 5,
+      "commentUser": "",
+      "comment": "346",
+      "commentDate": "",
+      "editCheck": false,
+      "postId": "3"
+    },
+    {
+      "id": 6,
+      "commentUser": "",
+      "comment": "567",
+      "commentDate": "",
+      "editCheck": false,
+      "postId": "3"
     }
   ]
 }
